@@ -7,10 +7,8 @@ button:focus-visible{outline:2px solid #fff;outline-offset:5px}
 .experience{position:relative;width:100%;height:100svh;min-height:440px;overflow:hidden;isolation:isolate;background:#000}
 .field{position:absolute;inset:0;z-index:-2;background:radial-gradient(circle,#6f6f6f 1px,transparent 1.25px) 0 0/19px 19px;opacity:.22;mask-image:radial-gradient(ellipse at 50% 45%,transparent 14%,#000 75%)}
 .artwork{position:absolute;inset:0;z-index:-1;overflow:hidden}
-.artwork-image{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:contain;object-position:center;opacity:0;transform:scale(1.035);filter:contrast(1.08);transition:opacity 1.25s ease,transform 8s ease;will-change:opacity,transform}
-.artwork-image.is-visible{opacity:1;transform:scale(1)}
-.artwork-image.is-wide{object-fit:cover;filter:contrast(1.3) brightness(.9)}
-.artwork-image.is-face{filter:contrast(1.18) brightness(1.05)}
+.artwork-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;transform:scale(1.025);transition:opacity 1.25s ease,transform 8s ease;will-change:opacity,transform}
+.artwork-canvas.is-visible{opacity:1;transform:scale(1)}
 .edge-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,#0009,transparent 24%,transparent 76%,#0009),linear-gradient(180deg,#0009,transparent 19%,transparent 74%,#000d);z-index:0}
 .corner-mark,.corner-action,.controls{position:absolute;z-index:5}
 .corner-mark{top:35px;left:42px;width:31px;height:31px;color:#fff;filter:drop-shadow(0 0 10px #ffffff55)}
@@ -27,6 +25,6 @@ button:focus-visible{outline:2px solid #fff;outline-offset:5px}
 .progress-dot:after{content:"";width:5px;height:5px;border-radius:50%;background:#797979;transition:background .3s,transform .3s,box-shadow .3s}
 .progress-dot:hover:after{background:#dedede;transform:scale(1.25)}
 .progress-dot.is-active:after{background:#fff;transform:scale(1.55);box-shadow:0 0 9px #ffffff99}
-@media(max-width:760px){.field{background-size:17px 17px}.artwork-image.is-wide{object-fit:cover}.edge-shade{background:linear-gradient(180deg,#0008,transparent 20%,transparent 69%,#000d)}.corner-mark{top:25px;left:24px;width:25px;height:25px}.corner-action{top:15px;right:18px}.controls{bottom:22px;gap:7px;padding:6px 7px}.control{width:37px;height:39px}.control span{width:22px;height:22px}.progress-dots{gap:7px;min-width:94px}.control--pause{width:44px;margin-left:1px}}
-@media(max-width:420px){.controls{bottom:16px}.artwork-image{object-position:center center}.corner-mark{left:19px;top:20px}.corner-action{right:13px;top:10px}}
-@media(prefers-reduced-motion:reduce){.artwork-image,.control,.progress-dot:after,.corner-action{transition:none!important}.artwork-image{transform:none!important}}
+@media(max-width:760px){.field{background-size:17px 17px}.edge-shade{background:linear-gradient(180deg,#0008,transparent 20%,transparent 69%,#000d)}.corner-mark{top:25px;left:24px;width:25px;height:25px}.corner-action{top:15px;right:18px}.controls{bottom:22px;gap:7px;padding:6px 7px}.control{width:37px;height:39px}.control span{width:22px;height:22px}.progress-dots{gap:7px;min-width:94px}.control--pause{width:44px;margin-left:1px}}
+@media(max-width:420px){.controls{bottom:16px}.corner-mark{left:19px;top:20px}.corner-action{right:13px;top:10px}}
+@media(prefers-reduced-motion:reduce){.artwork-canvas,.control,.progress-dot:after,.corner-action{transition:none!important}.artwork-canvas{transform:none!important}}
