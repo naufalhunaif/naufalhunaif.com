@@ -1,0 +1,35 @@
+Naufal Hunaif — geometry credits
+
+The website draws native circular points. No photographic textures or raster
+artwork are included. Meshes are normalized and quantized to compact geometry;
+surface normals and lighting are computed for the dot rendering.
+
+HEAD
+Infinite, 3D Head Scan by Lee Perry-Smith / Infinite Realities / triplegangers.com.
+Creative Commons Attribution 3.0 Unported.
+https://creativecommons.org/licenses/by/3.0/
+Source: https://github.com/mrdoob/three.js/tree/dev/examples/models/gltf/LeePerrySmith
+Original license: licenses/HEAD-LICENSE.txt
+Changes: extracted geometry only, normalized and quantized positions, recomputed
+smooth normals, rendered as monochrome dots.
+
+HUMAN
+MakeHuman hm08 base mesh, released under CC0 in September 2020.
+Copyright holders at release: Data Collection AB, Joel Palmius, Jonas Hauquier.
+https://creativecommons.org/publicdomain/zero/1.0/
+Source: https://github.com/makehumancommunity/makehuman/blob/master/makehuman/data/3dobjs/base.obj
+Original asset license: licenses/MAKEHUMAN-LICENSE.txt
+Changes: body-only extraction, adjusted resting arm pose, normalized and
+quantized geometry, recomputed normals, rendered as monochrome dots.
+
+HORSE AND BIRD
+Models by Mirada, from 3 Dreams of Black / ROME, Google Data Arts Team.
+Original project: https://github.com/dataarts/3-dreams-of-black
+Apache License 2.0: licenses/APACHE-2.0.txt
+GLB conversions: https://github.com/mrdoob/three.js/tree/dev/examples/models/gltf
+Changes: extracted geometry and morph poses from Horse.glb and Parrot.glb,
+removed materials and texture coordinates, normalized and quantized geometry,
+recomputed smooth normals, interpolated animation as monochrome dots.
+
+TREE, ROOTS, FLOWER, MOUNTAINS, GALAXY, PLANET, ABSTRACT
+Original procedural geometry and scalar fields created for this website.

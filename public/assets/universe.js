@@ -1,7 +1,7 @@
 // All artwork is sampled into circles drawn by Canvas. No image asset is loaded.
 const SCENES = [
-  {name:'Galaksi spiral', draw:galaxy},
   {name:'Wajah manusia', draw:face},
+  {name:'Galaksi spiral', draw:galaxy},
   {name:'Kuda berlari', draw:horse},
   {name:'Pohon dan akar', draw:tree},
   {name:'Sosok manusia', draw:human},
@@ -21,7 +21,7 @@ const S = 640;
 mask.width = mask.height = S;
 const ink = mask.getContext('2d', {willReadFrequently:true});
 let current = 0, visibleLayer = 0, paused = reduceMotion.matches;
-let timer, horseTimer, horsePhase = 0, touchStartX = null;
+let timer, motionTimer, motionPhase = 0, touchStartX = null;
 const indicators = SCENES.map((scene, index) => {
   const button = document.createElement('button');
   button.type = 'button';
@@ -38,38 +38,8 @@ function hash(a,b,seed=0) {
   return ((n^(n>>>16))>>>0)/4294967295;
 }
 function gauss(x,y,cx,cy,sx,sy) {const dx=(x-cx)/sx,dy=(y-cy)/sy;return Math.exp(-.5*(dx*dx+dy*dy));}
-function ellipse(x,y,rx,ry,fill,rotation=0) {ink.beginPath();ink.ellipse(x,y,rx,ry,rotation,0,Math.PI*2);ink.fillStyle=fill;ink.fill();}
-function shape(points,fill) {ink.beginPath();ink.moveTo(...points[0]);for(let i=1;i<points.length;i++)ink.lineTo(...points[i]);ink.closePath();ink.fillStyle=fill;ink.fill();}
-function stroke(points,width,color='#ddd') {ink.beginPath();ink.moveTo(...points[0]);for(let i=1;i<points.length;i++)ink.lineTo(...points[i]);ink.lineWidth=width;ink.lineCap=ink.lineJoin='round';ink.strokeStyle=color;ink.stroke();}
-function radial(x,y,r,inner=245,outer=0) {const g=ink.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,`rgb(${inner} ${inner} ${inner})`);g.addColorStop(1,`rgb(${outer} ${outer} ${outer})`);return g;}
 function clearMask() {ink.fillStyle='#000';ink.fillRect(0,0,S,S);}
-function face() {
-  clearMask();
-  ellipse(320,612,221,147,radial(320,540,310,110,0));
-  ellipse(320,315,186,254,radial(279,245,300,185,0));
-  ellipse(312,295,146,213,radial(283,263,250,225,22));
-  ellipse(195,330,23,63,radial(192,316,76,145,0));
-  ellipse(445,330,23,63,radial(445,316,76,135,0));
-  ellipse(317,158,171,102,radial(300,145,205,170,0));
-  ellipse(320,115,137,70,'#090909');
-  ellipse(223,145,43,101,'#171717',-.4);
-  ellipse(425,145,43,105,'#171717',.4);
-  ellipse(253,285,63,24,radial(253,285,84,100,0));
-  ellipse(387,285,63,24,radial(387,285,84,100,0));
-  ellipse(253,287,46,13,'#050505');ellipse(387,287,46,13,'#050505');
-  ellipse(253,286,12,12,'#686868');ellipse(387,286,12,12,'#686868');
-  ellipse(257,283,4,4,'#fff');ellipse(391,283,4,4,'#fff');
-  stroke([[212,249],[247,238],[285,247]],10,'#101010');
-  stroke([[354,247],[391,238],[428,249]],10,'#101010');
-  ellipse(320,338,23,90,radial(306,329,98,235,15));
-  ellipse(320,398,49,18,radial(314,387,55,85,0));
-  ellipse(302,407,16,8,'#0b0b0b');ellipse(340,407,16,8,'#0b0b0b');
-  ellipse(320,462,64,12,'#080808');
-  ellipse(320,451,61,11,radial(315,449,65,150,0));
-  ellipse(320,477,61,8,radial(320,475,68,120,0));
-  ellipse(315,507,55,24,radial(310,507,65,150,0));
-  for(let y=110;y<595;y+=13){const j=hash(y,4);ink.fillStyle=`rgba(0,0,0,${.13+j*.17})`;ink.fillRect(135+j*27,y,370-j*57,1+j*2);}
-}
+function face(phase=0) { window.drawAnatomy(ink,S,'head',phase); }
 function galaxy() {
   clearMask();const image=ink.createImageData(S,S),data=image.data;
   for(let y=0;y<S;y++)for(let x=0;x<S;x++){
@@ -77,130 +47,41 @@ function galaxy() {
     const arm=Math.pow(Math.max(0,Math.cos(spin*2)),7),arm2=Math.pow(Math.max(0,Math.cos(spin*2+.67)),10);
     const core=252*Math.exp(-r*r/(2*53*53)),disk=Math.exp(-r/220);
     const cloud=.62+.25*Math.sin(x*.068+y*.037)*Math.sin(y*.054-x*.027);
-    const v=Math.min(255,core+(115*arm+55*arm2+15)*disk*cloud),p=(y*S+x)*4;
+    const v=Math.min(255,core+(175*arm+80*arm2+13)*disk*cloud),p=(y*S+x)*4;
     data[p]=data[p+1]=data[p+2]=v;data[p+3]=255;
   }
-  ink.putImageData(image,0,0);ellipse(319,310,61,51,radial(319,310,73,255,0));
+  ink.putImageData(image,0,0);
 }
-function horse(phase=0) {
-  clearMask();const kick=Math.sin(phase),reach=Math.cos(phase),white='#dedede',mid='#969696';
-  for(let i=0;i<25;i++)ellipse(60+hash(i,7)*130,365+hash(i,8)*130,1+hash(i,9)*3,1+hash(i,10)*3,'#505050');
-  stroke([[197,320],[124,280+kick*16],[75,250+kick*23]],28,mid);
-  stroke([[175,327],[107,315+kick*18],[60,333+kick*28]],15,white);
-  ellipse(315,320,162,80,radial(300,282,190,230,78),-.09);
-  ellipse(212,339,68,66,radial(195,317,90,210,40));
-  shape([[395,293],[435,225],[490,192],[508,215],[475,294],[434,348]],white);
-  ellipse(445,265,43,82,radial(445,240,96,225,48),.49);
-  shape([[473,193],[530,166],[556,181],[557,216],[523,240],[489,225]],white);
-  shape([[520,212],[588,215],[599,236],[560,248],[524,236]],mid);
-  shape([[487,184],[484,142],[502,162],[507,186]],white);
-  shape([[514,174],[522,140],[534,168]],mid);
-  stroke([[458,233],[420,184],[388,182],[401,223]],18,'#bebebe');
-  ellipse(535,191,4,4,'#080808');ellipse(573,228,4,3,'#111');
-  stroke([[229,368],[179+kick*48,421],[124+kick*74,449-kick*30]],25,mid);
-  stroke([[255,376],[205-kick*60,422],[156-kick*87,465+kick*32]],22,white);
-  stroke([[394,363],[443+reach*39,410],[493+reach*67,429-reach*31]],25,mid);
-  stroke([[415,358],[462-reach*31,418],[532-reach*63,463+reach*25]],21,white);
-  stroke([[114+kick*74,450-kick*30],[84+kick*80,451-kick*30]],11,white);
-  stroke([[146-kick*87,465+kick*32],[116-kick*87,466+kick*32]],10,mid);
-  stroke([[488+reach*67,429-reach*31],[519+reach*69,430-reach*31]],10,white);
-  stroke([[528-reach*63,463+reach*25],[558-reach*63,463+reach*25]],10,mid);
-}
-function branch(x,y,length,angle,width,depth,seed,root=false) {
-  if(depth<=0||length<5)return;
-  const nx=x+Math.cos(angle)*length,ny=y+Math.sin(angle)*length;
-  stroke([[x,y],[nx,ny]],width,depth<3?'#bfbfbf':'#e5e5e5');
-  if(depth===1&&!root)ellipse(nx,ny,3,3,'#e9e9e9');
-  const bend=.24+hash(depth,seed)*.24;
-  branch(nx,ny,length*(.72+hash(seed,depth)*.08),angle-bend,width*.68,depth-1,seed+3,root);
-  branch(nx,ny,length*(.67+hash(seed,depth+1)*.08),angle+bend,width*.65,depth-1,seed+7,root);
-  if(depth>3&&hash(depth,seed+8)>.36)branch(nx,ny,length*.54,angle+(hash(seed,depth+4)-.5)*.32,width*.49,depth-2,seed+11,root);
-}
-function tree() {
-  clearMask();const trunk=ink.createLinearGradient(284,0,360,0);
-  trunk.addColorStop(0,'#676767');trunk.addColorStop(.5,'#fff');trunk.addColorStop(1,'#797979');
-  shape([[295,414],[292,242],[305,210],[326,212],[349,260],[345,414],[332,455],[311,449]],trunk);
-  branch(311,262,100,-1.96,21,6,1);branch(331,262,100,-1.15,20,6,2);
-  branch(318,218,96,-Math.PI/2,16,6,3);
-  branch(306,413,101,2.12,18,6,8,true);branch(328,413,101,1.04,17,6,9,true);
-  branch(318,425,102,Math.PI/2,14,6,12,true);
-  stroke([[80,414],[560,414]],2,'#444');
-}
-function human() {
-  clearMask();
-  ellipse(320,150,55,69,radial(304,122,108,222,62));
-  ellipse(320,102,52,32,'#202020');
-  ellipse(278,152,9,23,'#777');ellipse(362,152,9,23,'#777');
-  shape([[288,195],[352,195],[391,249],[373,417],[354,453],[282,453],[265,418],[250,249]],radial(294,241,249,225,35));
-  shape([[277,221],[238,240],[198,384],[212,400],[241,394],[284,289]],'#b5b5b5');
-  shape([[358,221],[399,244],[445,381],[427,401],[402,395],[351,286]],'#999');
-  ellipse(212,405,15,20,'#d6d6d6');ellipse(426,405,15,20,'#d6d6d6');
-  shape([[289,427],[318,428],[307,569],[284,572],[269,555]],'#d1d1d1');
-  shape([[324,428],[353,427],[371,556],[355,571],[331,568]],'#a3a3a3');
-  ellipse(288,578,37,13,'#ddd',-.1);ellipse(358,578,37,13,'#aaa',.1);
-  stroke([[320,212],[321,418]],3,'#343434');
-}
+function horse(phase=0) { window.drawAnatomy(ink,S,'horse',phase); }
+function tree(phase=0) { window.drawAnatomy(ink,S,'tree',phase); }
+function human(phase=0) { window.drawAnatomy(ink,S,'human',phase); }
 function planet() {
-  clearMask();
-  ink.save();ink.translate(320,320);ink.rotate(-.28);
-  ink.beginPath();ink.ellipse(0,0,265,97,0,0,Math.PI*2);ink.lineWidth=36;ink.strokeStyle='#6c6c6c';ink.stroke();
-  ink.beginPath();ink.ellipse(0,0,256,90,0,0,Math.PI*2);ink.lineWidth=8;ink.strokeStyle='#e1e1e1';ink.stroke();
-  ink.restore();
-  ellipse(320,315,142,142,radial(267,260,238,245,13));
-  ellipse(302,282,90,65,radial(280,264,105,73,0),.3);
-  ellipse(365,361,100,41,radial(358,354,111,65,0),-.28);
-  ink.save();ink.translate(320,320);ink.rotate(-.28);
-  ink.beginPath();ink.ellipse(0,0,265,97,0,0,Math.PI);ink.lineWidth=34;ink.strokeStyle='#bdbdbd';ink.stroke();
-  ink.beginPath();ink.ellipse(0,0,255,90,0,0,Math.PI);ink.lineWidth=8;ink.strokeStyle='#f0f0f0';ink.stroke();
-  ink.restore();
-}
-function flower() {
-  clearMask();
-  stroke([[319,344],[319,563]],17,'#d3d3d3');
-  stroke([[319,452],[240,415]],10,'#aaa');
-  stroke([[319,483],[390,436]],10,'#aaa');
-  ellipse(249,416,70,27,radial(234,411,82,206,20),-.31);
-  ellipse(385,434,75,26,radial(396,425,83,211,20),.32);
-  for(let i=0;i<12;i++){
-    const angle=i*Math.PI/6;
-    const x=320+Math.cos(angle)*92,y=285+Math.sin(angle)*92;
-    ellipse(x,y,76,37,radial(x-13,y-12,90,225,42),angle);
+  const image=ink.createImageData(S,S),data=image.data;
+  const center=S*.5,radius=S*.24,tilt=-.30,c=Math.cos(tilt),sn=Math.sin(tilt);
+  for(let y=0;y<S;y++)for(let x=0;x<S;x++){
+    const dx=x-center,dy=y-center,rx=dx*c+dy*sn,ry=-dx*sn+dy*c;
+    const diskRadius=Math.hypot(rx,ry/.33),diskZ=ry/.33*.944;
+    const sphereR=dx*dx+dy*dy;
+    let value=0,sphereZ=-Infinity;
+    if(sphereR<radius*radius){
+      sphereZ=Math.sqrt(radius*radius-sphereR);
+      const diffuse=Math.max(0,(-dx*.48-dy*.55+sphereZ*.68)/radius);
+      const bands=.77+.075*Math.sin(ry*.095+Math.sin(rx*.025)*.8)+.045*Math.sin(ry*.31);
+      value=(.06+.96*diffuse)*bands;
+    }
+    if(diskRadius>radius*1.34&&diskRadius<radius*1.87&&diskZ>sphereZ){
+      value=.47+.11*Math.sin(diskRadius*1.4)+.09*Math.sin(diskRadius*.41);
+      if(diskRadius>radius*1.63&&diskRadius<radius*1.68)value*=.12;
+      value*=.6+.4*(rx+S*.5)/S;
+    }
+    const p=(y*S+x)*4,v=Math.min(255,value*255);
+    data[p]=data[p+1]=data[p+2]=v;data[p+3]=255;
   }
-  ellipse(320,285,53,53,radial(302,267,72,253,55));
-  for(let i=0;i<42;i++){
-    const angle=hash(i,4)*Math.PI*2,r=Math.sqrt(hash(i,5))*47;
-    ellipse(320+Math.cos(angle)*r,285+Math.sin(angle)*r,1.6,1.6,'#272727');
-  }
+  ink.putImageData(image,0,0);
 }
-function bird() {
-  clearMask();
-  shape([[318,315],[238,265],[82,182],[148,311],[278,390]],radial(201,240,209,215,45));
-  shape([[286,330],[345,252],[516,153],[474,318],[350,401]],radial(429,230,207,218,44));
-  for(let i=0;i<7;i++){
-    stroke([[304,332],[112+i*17,220+i*21]],5+i*.7,'#9c9c9c');
-    stroke([[342,330],[492-i*16,189+i*23]],5+i*.7,'#9c9c9c');
-  }
-  ellipse(321,363,64,97,radial(294,334,133,235,55),-.2);
-  ellipse(316,274,39,40,radial(303,260,53,224,55));
-  shape([[315,269],[265,278],[312,286]],'#d9d9d9');
-  ellipse(305,264,4,4,'#111');
-  shape([[335,432],[360,536],[389,543],[361,427]],'#bababa');
-  shape([[315,436],[280,533],[252,543],[289,418]],'#dedede');
-}
-function mountains() {
-  clearMask();
-  ellipse(490,133,53,53,radial(478,121,72,235,20));
-  shape([[0,501],[146,307],[262,483],[349,390],[484,524],[640,466],[640,640],[0,640]],'#646464');
-  shape([[52,510],[222,171],[417,520],[640,350],[640,640],[0,640]],radial(215,290,325,235,25));
-  shape([[163,287],[222,171],[293,291],[247,275],[223,233],[198,282]],'#eee');
-  shape([[342,497],[483,246],[640,470],[640,640],[277,640]],radial(477,325,320,172,15));
-  shape([[446,310],[483,246],[533,314],[491,300],[477,278]],'#dedede');
-  stroke([[0,535],[640,535]],3,'#aaa');
-  for(let i=0;i<30;i++){
-    const x=hash(i,2)*640,y=40+hash(i,3)*270;
-    ellipse(x,y,1+hash(i,4)*1.5,1+hash(i,5)*1.5,'#bcbcbc');
-  }
-}
+function flower(phase=0) { window.drawAnatomy(ink,S,'flower',phase); }
+function bird(phase=0) { window.drawAnatomy(ink,S,'bird',phase); }
+function mountains(phase=0) { window.drawAnatomy(ink,S,'mountains',phase); }
 function abstract() {
   clearMask();const image=ink.createImageData(S,S),data=image.data;
   for(let y=0;y<S;y++)for(let x=0;x<S;x++){
@@ -217,45 +98,38 @@ function render(canvas,sceneIndex,phase=0) {
   if(!width||!height)return;
   // A high-DPI backing store keeps every procedural dot sharp on Retina displays.
   const dpr=Math.max(1,Math.min(devicePixelRatio||1,3,4096/Math.max(width,height)));
-  canvas.width=Math.round(width*dpr);canvas.height=Math.round(height*dpr);
-  const ctx=canvas.getContext('2d',{alpha:false});ctx.setTransform(dpr,0,0,dpr,0,0);
-  ctx.fillStyle='#000';ctx.fillRect(0,0,width,height);
   SCENES[sceneIndex].draw(phase);
   const pixels=ink.getImageData(0,0,S,S).data,mobile=width<700;
   const size=Math.min(width*(mobile?1.2:.91),height*(mobile?.82:.93),1060);
   const left=(width-size)/2,top=(height-size)/2-(mobile?14:2);
-  const pitch=mobile?4.2:5.1,columns=Math.ceil(width/pitch),rows=Math.ceil(height/pitch);
-  const dotBands=Array.from({length:8},()=>[]);
+  const pitch=mobile?2.3:3.0,columns=Math.ceil(width/pitch),rows=Math.ceil(height/pitch);
+  const dots=[];
   for(let row=0;row<rows;row++)for(let col=0;col<columns;col++){
     const x=(col+.5)*pitch,y=(row+.5)*pitch,mx=Math.floor((x-left)/size*S),my=Math.floor((y-top)/size*S);
     let light=mx>=0&&mx<S&&my>=0&&my<S?pixels[(my*S+mx)*4]/255:0;
     const grain=hash(col,row,sceneIndex);
-    if(sceneIndex===0){
+    if(SCENES[sceneIndex].draw===galaxy){
       if(grain>.995)light=Math.max(light,.32+hash(row,col,7)*.5);
       else if(grain>.9)light*=.4+grain*.5;
     } else if(grain>.9985)light=Math.max(light,.15);
     if(light<.055||grain<.08*(1-light))continue;
     const radius=pitch*(.055+.33*Math.pow(light,.76)),alpha=Math.min(1,.22+light*.87);
-    dotBands[Math.min(7,Math.floor(alpha*8))].push([x,y,radius]);
+    dots.push(x,y,radius,alpha);
   }
-  for(let band=0;band<8;band++){
-    ctx.beginPath();
-    for(const [x,y,radius] of dotBands[band]){
-      ctx.moveTo(x+radius,y);ctx.arc(x,y,radius,0,Math.PI*2);
-    }
-    ctx.fillStyle=`rgba(255,255,255,${(band+.5)/8})`;ctx.fill();
-  }
+  window.drawNativeDots(canvas,width,height,dpr,dots);
 }
 function schedule() {clearTimeout(timer);if(!paused&&!document.hidden)timer=setTimeout(()=>show(current+1),7200);}
-function animateHorse() {
-  clearInterval(horseTimer);
-  if(current===2&&!paused&&!document.hidden)horseTimer=setInterval(()=>{
-    horsePhase+=.42;render(canvases[visibleLayer],current,horsePhase);
-  },140);
+function animateSubject() {
+  clearInterval(motionTimer);
+  let last=performance.now();
+  if((current===2||current===7)&&!paused&&!document.hidden)motionTimer=setInterval(()=>{
+    const now=performance.now();motionPhase+=Math.min(180,now-last)*.0125;last=now;
+    render(canvases[visibleLayer],current,motionPhase);
+  },85);
 }
 function setPauseState() {
   pauseButton.setAttribute('aria-label',paused?'Lanjutkan animasi':'Jeda animasi');
-  window.drawDotIcon(pauseIcon,paused?'play':'pause');schedule();animateHorse();
+  window.drawDotIcon(pauseIcon,paused?'play':'pause');schedule();animateSubject();
 }
 function show(index) {
   index=(index+SCENES.length)%SCENES.length;
@@ -268,7 +142,7 @@ function show(index) {
     incoming.classList.add('is-visible');incoming.removeAttribute('aria-hidden');
     visibleLayer=incomingIndex;current=index;
     indicators.forEach((dot,i)=>{dot.classList.toggle('is-active',i===current);dot.setAttribute('aria-pressed',String(i===current));});
-    schedule();animateHorse();
+    schedule();animateSubject();
   });
 }
 function next(){show(current+1);}function previous(){show(current-1);}
@@ -287,8 +161,8 @@ document.addEventListener('touchend',event=>{
   const dx=(event.changedTouches[0]?.screenX??touchStartX)-touchStartX;touchStartX=null;
   if(Math.abs(dx)>55)(dx<0?next:previous)();
 },{passive:true});
-document.addEventListener('visibilitychange',()=>{schedule();animateHorse();});
+document.addEventListener('visibilitychange',()=>{schedule();animateSubject();});
 reduceMotion.addEventListener('change',()=>{paused=reduceMotion.matches;setPauseState();});
 let resizeTimer;
-addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>render(canvases[visibleLayer],current,horsePhase),130);});
+addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>render(canvases[visibleLayer],current,motionPhase),130);});
 render(canvases[0],0);setPauseState();
