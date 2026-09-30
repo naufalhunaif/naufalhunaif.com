@@ -3,77 +3,33 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0a0d0b">
-  <meta name="description" content="Halaman personal Naufal Hunaif, dibangun sepenuhnya dengan bahasa visual dot matrix.">
-  <title>Naufal Hunaif — Dot Matrix</title>
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="Galeri visual berbasis titik oleh Naufal Hunaif.">
+  <title>Naufal Hunaif</title>
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
-  <link rel="stylesheet" href="/assets/style.css">
-  <link rel="stylesheet" href="/assets/universe.css">
+  <link rel="preload" as="image" href="/assets/dot-horse.png">
+  <link rel="stylesheet" href="/assets/site.css">
   <script defer src="/assets/app.js"></script>
   <script defer src="/assets/universe.js"></script>
 </head>
-<body id="top">
-  <a class="skip-link" href="#main"><span class="dot-text dot-xs">LEWATI NAVIGASI</span></a>
-  <div class="site-shell">
-    <header class="site-header">
-      <a class="brand" href="#top" aria-label="Naufal Hunaif, kembali ke atas">
-        <span class="brand-mark" data-dot-icon="monogram" aria-hidden="true"></span>
-        <span class="brand-copy"><span class="dot-text dot-small">NAUFAL</span><span class="dot-text dot-small">HUNAIF</span></span>
-      </a>
-      <nav class="nav" aria-label="Navigasi utama">
-        <a href="#tentang"><span class="nav-number dot-text dot-xs">01</span><span class="dot-text dot-xs">TENTANG</span></a>
-        <a href="#eksplorasi"><span class="nav-number dot-text dot-xs">02</span><span class="dot-text dot-xs">EKSPLORASI</span></a>
-        <a href="#akhir"><span class="nav-number dot-text dot-xs">03</span><span class="dot-text dot-xs">AKHIR</span></a>
-      </nav>
-      <div class="header-status"><span class="live-dot" aria-hidden="true"></span><span class="dot-text dot-xs">ONLINE</span></div>
-    </header>
+<body>
+  <main class="experience" aria-label="Galeri seni dot Naufal Hunaif">
+    <div class="field" aria-hidden="true"></div>
+    <div class="artwork" aria-live="polite">
+      <img class="artwork-image is-visible" src="/assets/dot-horse.png" alt="Kuda berlari dalam karya hitam putih yang seluruhnya tersusun dari titik" width="1024" height="1536" fetchpriority="high">
+      <img class="artwork-image" alt="" aria-hidden="true">
+    </div>
+    <div class="edge-shade" aria-hidden="true"></div>
 
-    <main id="main">
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-copy">
-          <div class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span><span class="dot-text dot-xs">PERSONAL SPACE / 2026</span></div>
-          <p class="hero-hello"><span class="dot-text dot-label">HALO, SAYA</span></p>
-          <h1 id="hero-title" class="hero-name"><span class="dot-text dot-display">NAUFAL</span><span class="dot-text dot-display">HUNAIF</span></h1>
-          <p class="hero-intro"><span class="dot-text dot-body dot-wrap">SEBUAH RUANG UNTUK IDE, KARYA, DAN HAL-HAL YANG TERUS BERKEMBANG.</span></p>
-          <a class="primary-link" href="#tentang"><span class="dot-text dot-xs">JELAJAHI HALAMAN</span><span class="link-icon" data-dot-icon="arrow-down" aria-hidden="true"></span></a>
-        </div>
-        <div class="hero-visual">
-          <img class="visual-fallback" src="/assets/dot-portrait.jpeg" alt="Potret artistik hitam putih yang dibentuk oleh ribuan titik" width="736" height="1104">
-          <canvas class="universe-canvas" aria-label="Animasi titik yang berganti antara benda langit, manusia, hewan, tumbuhan, dan bentuk abstrak" role="img"></canvas>
-          <span class="visual-caption visual-caption--top dot-text dot-xs" data-scene-name>WAJAH / 01</span>
-          <div class="visual-controls"><span class="dot-text dot-xs" data-scene-count>01 / 12</span><button class="visual-next" type="button" aria-label="Visual berikutnya"><span data-dot-icon="arrow-right" aria-hidden="true"></span></button></div>
-        </div>
-        <div class="hero-index" aria-hidden="true"><span class="dot-text dot-xs">SCROLL ↓</span><span class="dot-text dot-xs">01 / 03</span></div>
-      </section>
+    <div class="corner-mark" aria-hidden="true" data-dot-icon="mark"></div>
+    <button class="corner-action" type="button" data-random aria-label="Tampilkan visual acak"><span data-dot-icon="shuffle" aria-hidden="true"></span></button>
 
-      <div class="ticker" aria-hidden="true"><span class="ticker-track"><span class="dot-text dot-xs">● IDE MENJADI BENTUK ● SETIAP TITIK PUNYA CERITA ● IDE MENJADI BENTUK ● SETIAP TITIK PUNYA CERITA ● </span><span class="dot-text dot-xs">● IDE MENJADI BENTUK ● SETIAP TITIK PUNYA CERITA ● IDE MENJADI BENTUK ● SETIAP TITIK PUNYA CERITA ● </span></span></div>
-
-      <section class="about section-pad" id="tentang" aria-labelledby="about-title">
-        <div class="section-heading"><span class="section-number dot-text dot-xs">/ 01</span><span class="dot-text dot-xs">TENTANG</span><span class="section-rule"></span></div>
-        <div class="about-grid">
-          <div class="about-title-wrap"><span class="asterisk" data-dot-icon="asterisk" aria-hidden="true"></span><h2 id="about-title"><span class="dot-text dot-heading">SETIAP TITIK</span><span class="dot-text dot-heading">PUNYA CERITA.</span></h2></div>
-          <div class="about-copy"><p><span class="dot-text dot-body dot-wrap">SELAMAT DATANG DI RUANG DIGITAL NAUFAL HUNAIF. TEMPAT IDE KECIL DIBERI RUANG UNTUK TUMBUH.</span></p><p><span class="dot-text dot-body dot-wrap">DIBANGUN DARI TITIK-TITIK SEDERHANA, HALAMAN INI MERAYAKAN PROSES, RASA INGIN TAHU, DAN KEMUNGKINAN BARU.</span></p><div class="about-coordinate"><span class="dot-text dot-xs">07 COLS × 09 ROWS</span><span class="dot-text dot-xs">↗</span></div></div>
-        </div>
-        <figure class="about-art"><img src="/assets/dot-abstract.jpeg" alt="Komposisi abstrak hitam putih yang seluruh bentuknya dibuat dari titik" width="735" height="490" loading="lazy"><figcaption><span class="dot-text dot-xs">VISUAL STUDY / 001</span><span class="dot-text dot-xs">DOTS ONLY</span></figcaption></figure>
-      </section>
-
-      <section class="explore section-pad" id="eksplorasi" aria-labelledby="explore-title">
-        <div class="section-heading"><span class="section-number dot-text dot-xs">/ 02</span><span class="dot-text dot-xs">EKSPLORASI</span><span class="section-rule"></span></div>
-        <div class="explore-head"><h2 id="explore-title"><span class="dot-text dot-heading">DARI SATU</span><span class="dot-text dot-heading accent-text">TITIK.</span></h2><p><span class="dot-text dot-body dot-wrap">SEBUAH GAGASAN BISA DIMULAI DARI MANA SAJA.</span></p></div>
-        <div class="card-grid">
-          <article class="dot-card"><div class="card-top"><span class="dot-text dot-xs">01 / 03</span><span data-dot-icon="spark" aria-hidden="true"></span></div><div class="card-art card-art--idea" data-card-art="idea" aria-hidden="true"></div><div class="card-bottom"><h3><span class="dot-text dot-card-title">IDE</span></h3><p><span class="dot-text dot-xs dot-wrap">MULAI DARI RASA INGIN TAHU.</span></p></div></article>
-          <article class="dot-card"><div class="card-top"><span class="dot-text dot-xs">02 / 03</span><span data-dot-icon="grid" aria-hidden="true"></span></div><div class="card-art card-art--process" data-card-art="process" aria-hidden="true"></div><div class="card-bottom"><h3><span class="dot-text dot-card-title">PROSES</span></h3><p><span class="dot-text dot-xs dot-wrap">SUSUN, UJI, LALU ULANGI.</span></p></div></article>
-          <article class="dot-card"><div class="card-top"><span class="dot-text dot-xs">03 / 03</span><span data-dot-icon="arrow-up" aria-hidden="true"></span></div><div class="card-art card-art--make" data-card-art="make" aria-hidden="true"></div><div class="card-bottom"><h3><span class="dot-text dot-card-title">KARYA</span></h3><p><span class="dot-text dot-xs dot-wrap">BERI BENTUK PADA GAGASAN.</span></p></div></article>
-        </div>
-      </section>
-
-      <section class="closing section-pad" id="akhir" aria-labelledby="closing-title">
-        <div class="section-heading"><span class="section-number dot-text dot-xs">/ 03</span><span class="dot-text dot-xs">AKHIR</span><span class="section-rule"></span></div>
-        <div class="closing-content"><span class="closing-star" data-dot-icon="asterisk" aria-hidden="true"></span><p><span class="dot-text dot-label">MASIH BANYAK YANG AKAN DATANG.</span></p><h2 id="closing-title"><span class="dot-text dot-heading">SAMPAI JUMPA</span><span class="dot-text dot-heading">DI TITIK</span><span class="dot-text dot-heading accent-text">BERIKUTNYA.</span></h2><a href="#top" class="back-top"><span class="dot-text dot-xs">KEMBALI KE ATAS</span><span data-dot-icon="arrow-up" aria-hidden="true"></span></a></div>
-      </section>
-    </main>
-
-    <footer class="site-footer"><span class="dot-text dot-xs">© 2026 NAUFAL HUNAIF</span><span class="footer-center dot-text dot-xs">MADE OF DOTS / 7 × 9</span><a href="#top"><span class="dot-text dot-xs">TOP ↑</span></a></footer>
-  </div>
+    <div class="controls" aria-label="Kontrol galeri">
+      <button class="control" type="button" data-prev aria-label="Visual sebelumnya"><span data-dot-icon="left" aria-hidden="true"></span></button>
+      <div class="progress-dots" role="group" aria-label="Pilih visual"></div>
+      <button class="control" type="button" data-next aria-label="Visual berikutnya"><span data-dot-icon="right" aria-hidden="true"></span></button>
+      <button class="control control--pause" type="button" data-pause aria-label="Jeda animasi"><span data-dot-icon="pause" aria-hidden="true"></span></button>
+    </div>
+  </main>
 </body>
 </html>
