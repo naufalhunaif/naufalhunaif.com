@@ -20,11 +20,11 @@ button:focus-visible{outline:2px solid #fff;outline-offset:5px}
 .control:hover{background:#ffffff1d;color:#fff}
 .control span{width:25px;height:25px;display:block}
 .control--pause{margin-left:5px;border-left:1px dotted #ffffff55;padding-left:6px;width:48px}
-.progress-dots{display:flex;align-items:center;justify-content:center;gap:10px;min-width:114px}
+.progress-dots{display:flex;align-items:center;justify-content:center;gap:6px;min-width:184px}
 .progress-dot{width:14px;height:22px;padding:0;border:0;background:transparent;cursor:pointer;display:grid;place-items:center}
 .progress-dot:after{content:"";width:5px;height:5px;border-radius:50%;background:#797979;transition:background .3s,transform .3s,box-shadow .3s}
 .progress-dot:hover:after{background:#dedede;transform:scale(1.25)}
 .progress-dot.is-active:after{background:#fff;transform:scale(1.55);box-shadow:0 0 9px #ffffff99}
-@media(max-width:760px){.field{background-size:17px 17px}.edge-shade{background:linear-gradient(180deg,#0008,transparent 20%,transparent 69%,#000d)}.corner-mark{top:25px;left:24px;width:25px;height:25px}.corner-action{top:15px;right:18px}.controls{bottom:22px;gap:7px;padding:6px 7px}.control{width:37px;height:39px}.control span{width:22px;height:22px}.progress-dots{gap:7px;min-width:94px}.control--pause{width:44px;margin-left:1px}}
+@media(max-width:760px){.field{background-size:17px 17px}.edge-shade{background:linear-gradient(180deg,#0008,transparent 20%,transparent 69%,#000d)}.corner-mark{top:25px;left:24px;width:25px;height:25px}.corner-action{top:15px;right:18px}.controls{bottom:22px;gap:7px;padding:6px 7px}.control{width:37px;height:39px}.control span{width:22px;height:22px}.progress-dots{gap:3px;min-width:118px}.progress-dot{width:9px}.control--pause{width:44px;margin-left:1px}}
 @media(max-width:420px){.controls{bottom:16px}.corner-mark{left:19px;top:20px}.corner-action{right:13px;top:10px}}
 @media(prefers-reduced-motion:reduce){.artwork-canvas,.control,.progress-dot:after,.corner-action{transition:none!important}.artwork-canvas{transform:none!important}}

@@ -5,6 +5,10 @@ const SCENES = [
   {name:'Kuda berlari', draw:horse},
   {name:'Pohon dan akar', draw:tree},
   {name:'Sosok manusia', draw:human},
+  {name:'Planet bercincin', draw:planet},
+  {name:'Bunga', draw:flower},
+  {name:'Burung terbang', draw:bird},
+  {name:'Pegunungan', draw:mountains},
   {name:'Bentuk abstrak', draw:abstract}
 ];
 const canvases = [...document.querySelectorAll('.artwork-canvas')];
@@ -135,6 +139,67 @@ function human() {
   shape([[324,428],[353,427],[371,556],[355,571],[331,568]],'#a3a3a3');
   ellipse(288,578,37,13,'#ddd',-.1);ellipse(358,578,37,13,'#aaa',.1);
   stroke([[320,212],[321,418]],3,'#343434');
+}
+function planet() {
+  clearMask();
+  ink.save();ink.translate(320,320);ink.rotate(-.28);
+  ink.beginPath();ink.ellipse(0,0,265,97,0,0,Math.PI*2);ink.lineWidth=36;ink.strokeStyle='#6c6c6c';ink.stroke();
+  ink.beginPath();ink.ellipse(0,0,256,90,0,0,Math.PI*2);ink.lineWidth=8;ink.strokeStyle='#e1e1e1';ink.stroke();
+  ink.restore();
+  ellipse(320,315,142,142,radial(267,260,238,245,13));
+  ellipse(302,282,90,65,radial(280,264,105,73,0),.3);
+  ellipse(365,361,100,41,radial(358,354,111,65,0),-.28);
+  ink.save();ink.translate(320,320);ink.rotate(-.28);
+  ink.beginPath();ink.ellipse(0,0,265,97,0,0,Math.PI);ink.lineWidth=34;ink.strokeStyle='#bdbdbd';ink.stroke();
+  ink.beginPath();ink.ellipse(0,0,255,90,0,0,Math.PI);ink.lineWidth=8;ink.strokeStyle='#f0f0f0';ink.stroke();
+  ink.restore();
+}
+function flower() {
+  clearMask();
+  stroke([[319,344],[319,563]],17,'#d3d3d3');
+  stroke([[319,452],[240,415]],10,'#aaa');
+  stroke([[319,483],[390,436]],10,'#aaa');
+  ellipse(249,416,70,27,radial(234,411,82,206,20),-.31);
+  ellipse(385,434,75,26,radial(396,425,83,211,20),.32);
+  for(let i=0;i<12;i++){
+    const angle=i*Math.PI/6;
+    const x=320+Math.cos(angle)*92,y=285+Math.sin(angle)*92;
+    ellipse(x,y,76,37,radial(x-13,y-12,90,225,42),angle);
+  }
+  ellipse(320,285,53,53,radial(302,267,72,253,55));
+  for(let i=0;i<42;i++){
+    const angle=hash(i,4)*Math.PI*2,r=Math.sqrt(hash(i,5))*47;
+    ellipse(320+Math.cos(angle)*r,285+Math.sin(angle)*r,1.6,1.6,'#272727');
+  }
+}
+function bird() {
+  clearMask();
+  shape([[318,315],[238,265],[82,182],[148,311],[278,390]],radial(201,240,209,215,45));
+  shape([[286,330],[345,252],[516,153],[474,318],[350,401]],radial(429,230,207,218,44));
+  for(let i=0;i<7;i++){
+    stroke([[304,332],[112+i*17,220+i*21]],5+i*.7,'#9c9c9c');
+    stroke([[342,330],[492-i*16,189+i*23]],5+i*.7,'#9c9c9c');
+  }
+  ellipse(321,363,64,97,radial(294,334,133,235,55),-.2);
+  ellipse(316,274,39,40,radial(303,260,53,224,55));
+  shape([[315,269],[265,278],[312,286]],'#d9d9d9');
+  ellipse(305,264,4,4,'#111');
+  shape([[335,432],[360,536],[389,543],[361,427]],'#bababa');
+  shape([[315,436],[280,533],[252,543],[289,418]],'#dedede');
+}
+function mountains() {
+  clearMask();
+  ellipse(490,133,53,53,radial(478,121,72,235,20));
+  shape([[0,501],[146,307],[262,483],[349,390],[484,524],[640,466],[640,640],[0,640]],'#646464');
+  shape([[52,510],[222,171],[417,520],[640,350],[640,640],[0,640]],radial(215,290,325,235,25));
+  shape([[163,287],[222,171],[293,291],[247,275],[223,233],[198,282]],'#eee');
+  shape([[342,497],[483,246],[640,470],[640,640],[277,640]],radial(477,325,320,172,15));
+  shape([[446,310],[483,246],[533,314],[491,300],[477,278]],'#dedede');
+  stroke([[0,535],[640,535]],3,'#aaa');
+  for(let i=0;i<30;i++){
+    const x=hash(i,2)*640,y=40+hash(i,3)*270;
+    ellipse(x,y,1+hash(i,4)*1.5,1+hash(i,5)*1.5,'#bcbcbc');
+  }
 }
 function abstract() {
   clearMask();const image=ink.createImageData(S,S),data=image.data;
