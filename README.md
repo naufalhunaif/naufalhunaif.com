@@ -2,6 +2,8 @@
 
 Satu halaman personal untuk Cloudflare Workers. Semua teks yang terlihat dirender
 sebagai huruf dot matrix 7×9. Ikon, ilustrasi, dan pola halaman juga memakai titik.
+Halaman disajikan langsung sebagai Static Assets oleh Cloudflare, tanpa skrip
+Worker yang menulis ulang rute `/`.
 Visual utama berganti otomatis antara 12 subjek: wajah artistik, kuda berlari,
 manusia, tumbuhan dan akar, galaksi, planet, burung, ikan, kupu-kupu,
 pegunungan, nebula, serta komposisi abstrak. Tombol panah
